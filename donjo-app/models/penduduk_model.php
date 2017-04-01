@@ -89,14 +89,6 @@
 		}
 	}
 
-	function pekerjaan_sql(){
-		if(isset($_SESSION['pekerjaan_id'])){
-			$kf = $_SESSION['pekerjaan_id'];
-			$pekerjaan_sql= " AND u.pekerjaan_id = $kf";
-		return $pekerjaan_sql;
-		}
-	}
-
 	function get_sql_kolom_kode($kode_session,$kode_kolom){
 		if(isset($_SESSION[$kode_session])){
 			$kf = $_SESSION[$kode_session];
@@ -139,21 +131,6 @@
 			$kf = $_SESSION['hamil'];
 			$hamil_sql= " AND u.hamil = $kf";
 		return $hamil_sql;
-		}
-	}
-	function pendidikan_sedang_sql(){
-		if(isset($_SESSION['pendidikan_sedang_id'])){
-			$kf = $_SESSION['pendidikan_sedang_id'];
-			$pendidikan_sedang_sql= " AND u.pendidikan_sedang_id = $kf";
-		return $pendidikan_sedang_sql;
-		}
-	}
-
-	function status_penduduk_sql(){
-		if(isset($_SESSION['status_penduduk'])){
-			$kf = $_SESSION['status_penduduk'];
-			$status_penduduk_sql= " AND u.status = $kf";
-		return $status_penduduk_sql;
 		}
 	}
 
@@ -270,7 +247,10 @@
 			array('cara_kb_id','cara_kb_id'),
 			array('menahun','sakit_menahun_id'),
 			array('status','status_kawin'),
-			array('pendidikan_kk_id','pendidikan_kk_id')
+			array('pendidikan_kk_id','pendidikan_kk_id'),
+			array('pendidikan_sedang_id','pendidikan_sedang_id'),
+			array('status_penduduk','status'),
+			array('pekerjaan_id','pekerjaan_id')
 		);
 		foreach ($kolom_kode as $kolom){
 			$sql .= $this->get_sql_kolom_kode($kolom[0],$kolom[1]);
@@ -283,10 +263,7 @@
 		$sql .= $this->golongan_darah_sql();
 		$sql .= $this->umur_min_sql();
 		$sql .= $this->umur_max_sql();
-		$sql .= $this->pekerjaan_sql();
-		$sql .= $this->pendidikan_sedang_sql();
 		$sql .= $this->umur_sql();
-		$sql .= $this->status_penduduk_sql();
 		$sql .= $this->log_sql();
 		$sql .= $this->hamil_sql();
 
